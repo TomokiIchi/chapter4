@@ -28,7 +28,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _message;
-  static var _janken = <String>['グー', 'チョキ', 'パー'];
   final controller = TextEditingController();
 
   @override
@@ -62,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: EdgeInsets.all(10.0),
                 child: TextField(
+                  onChanged: textChanged,
                   controller: controller,
                   style: TextStyle(
                       fontFamily: "Robot",
@@ -70,28 +70,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              FlatButton(
-                onPressed: buttonPressed,
-                padding: EdgeInsets.all(10.0),
-                color: Colors.lightBlueAccent,
-                child: Text(
-                  "push me!",
-                  style: TextStyle(
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "Roboto",
-                    color: const Color(0xFF000000),
-                  ),
-                ),
-              ),
             ],
           ),
         ));
   }
 
-  void buttonPressed() {
+  void textChanged(String val) {
     setState(() {
-      _message = 'You said: ' + controller.text;
+      _message = val;
     });
   }
 }
