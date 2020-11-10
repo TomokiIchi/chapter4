@@ -27,8 +27,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _message;
-  final controller = TextEditingController();
+  String _message;
+  String _selected = 'One';
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child: Text(
                   _message,
                   style: TextStyle(
@@ -58,26 +58,38 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontFamily: "Roboto"),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: TextField(
-                  onChanged: textChanged,
-                  controller: controller,
-                  style: TextStyle(
-                      fontFamily: "Robot",
-                      fontSize: 28.0,
-                      color: const Color(0xFFFF0000),
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
+              DropdownButton<String>(
+                onChanged: (String value) => popupSelected(value),
+                value: _selected,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                items: <DropdownMenuItem<String>>[
+                  const DropdownMenuItem<String>(
+                    value: 'One',
+                    child: const Text('one'),
+                  ),
+                  const DropdownMenuItem<String>(
+                    value: 'Two',
+                    child: const Text('two'),
+                  ),
+                  const DropdownMenuItem<String>(
+                    value: 'Three',
+                    child: const Text('three'),
+                  ),
+                ],
+              )
             ],
           ),
         ));
   }
 
-  void textChanged(String val) {
+  void popupSelected(String value) {
     setState(() {
-      _message = val;
+      _selected = value;
+      _message = 'select: $_selected';
     });
   }
 }
