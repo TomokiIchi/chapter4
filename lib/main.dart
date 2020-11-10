@@ -29,6 +29,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _message;
   static var _janken = <String>['グー', 'チョキ', 'パー'];
+  final controller = TextEditingController();
+
   @override
   void initState() {
     _message = 'Ready?';
@@ -57,18 +59,31 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontFamily: "Roboto"),
                 ),
               ),
-              new FlatButton(
-                  key: null,
-                  onPressed: buttonPressed,
-                  color: Colors.black12,
-                  child: new Text(
-                    "Push me!!",
-                    style: new TextStyle(
-                        fontSize: 33.0,
-                        color: const Color(0xFF000000),
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Roboto"),
-                  )),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: controller,
+                  style: TextStyle(
+                      fontFamily: "Robot",
+                      fontSize: 28.0,
+                      color: const Color(0xFFFF0000),
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+              FlatButton(
+                onPressed: buttonPressed,
+                padding: EdgeInsets.all(10.0),
+                color: Colors.lightBlueAccent,
+                child: Text(
+                  "push me!",
+                  style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto",
+                    color: const Color(0xFF000000),
+                  ),
+                ),
+              ),
             ],
           ),
         ));
@@ -76,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void buttonPressed() {
     setState(() {
-      _message = (_janken..shuffle()).first;
+      _message = 'You said: ' + controller.text;
     });
   }
 }
